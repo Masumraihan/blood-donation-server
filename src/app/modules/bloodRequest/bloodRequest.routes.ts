@@ -13,6 +13,4 @@ router.post(
   BloodRequestControllers.createBloodRequest,
 );
 
-router.get("/donor-list", BloodRequestControllers.getAllBloodRequests);
-
 export const BloodRequestRoutes = router;

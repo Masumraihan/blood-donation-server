@@ -12,7 +12,7 @@ model User {
   name                   String
   email                  String         @unique
   password               String
-  bloodType              BloodType
+  bloodType              String
   location               String
   availability           Boolean        @default(false)
   createdAt              DateTime       @default(now())
@@ -55,17 +55,6 @@ model BloodRequest {
   requester User @relation(name: "requester", fields: [requesterId], references: [id])
 
   @@map("bloodRequests")
-}
-
-enum BloodType {
-  A_POSITIVE
-  A_NEGATIVE
-  B_POSITIVE
-  B_NEGATIVE
-  AB_POSITIVE
-  AB_NEGATIVE
-  O_POSITIVE
-  O_NEGATIVE
 }
 
 enum RequestStatus {

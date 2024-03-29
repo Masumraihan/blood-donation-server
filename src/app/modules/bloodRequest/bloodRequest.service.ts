@@ -37,13 +37,4 @@ const createBloodRequestIntoDb = async (payload: TPayload, user: JwtPayload) => 
   return result;
 };
 
-const getAllBloodRequestsFromDb = async (query: Record<string, unknown>) => {
-
-
-  
-
-  const result = await prisma.bloodRequest.findMany();
-  return result;
-};
-
-export const BloodRequestServices = { createBloodRequestIntoDb, getAllBloodRequestsFromDb };
+export const BloodRequestServices = { createBloodRequestIntoDb };
