@@ -8,11 +8,10 @@ const globalErrorHandler = (error: any, req: Request, res: Response, next: NextF
   let errorResponse: TErrorResponse = {
     statusCode,
     message: "Internal server error",
-    errorDetails: "Something went wrong, please try again later",
+    errorDetails: error,
   };
 
   if (error instanceof ZodError) {
-    statusCode = 400;
     errorResponse = zodError(error);
   }
   res.status(errorResponse.statusCode).json({
