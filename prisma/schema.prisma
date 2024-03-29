@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String         @id @default(uuid())
+  name                   String
+  email                  String         @unique
+  password               String
+  bloodType              BloodType
+  location               String
+  availability           Boolean        @default(false)
+  createdAt              DateTime       @default(now())
+  updateAt               DateTime       @updatedAt
+  userProfile            UserProfile[]
+  requestedBloodRequests BloodRequest[] @relation(name: "doner")
+  donatedBloodRequests   BloodRequest[] @relation(name: "requester")
+
+  @@map("users")
+}
+
+model UserProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  bio              String
+  age              Int
+  lastDanationDate String
+  createdAt        DateTime @default(now())
+  updateAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("userProfiles")
+}
+
+model BloodRequest {
+  id             String        @id @default(uuid())
+  donorId        String
+  requesterId    String
+  phoneNumber    String
+  dateOfDonation String
+  hospitalName   String
+  reason         String
+  requestStatus  RequestStatus
+  createdAt      DateTime      @default(now())
+  updateAt       DateTime      @updatedAt
+
+  donor     User @relation(name: "doner", fields: [donorId], references: [id])
+  requester User @relation(name: "requester", fields: [requesterId], references: [id])
+}
+
+enum BloodType {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
