@@ -24,8 +24,6 @@ const registerValidation = z.object({
   }),
 });
 
-
-
-export const UserValidations = {
+export const AuthValidations = {
   registerValidation,
 };

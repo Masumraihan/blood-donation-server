@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import prisma from "../../../shared/prisma";
 import ApiError from "../../../errors/ApiError";
 import { StatusCodes } from "http-status-codes";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import config from "../../../config";
 
 const registerIntoDb = async (payload: User & UserProfile) => {
@@ -50,7 +50,7 @@ const loginIntoDb = async ({ email, password }: { email: string; password: strin
 
   const accessToken = jwt.sign(
     { email: userData.email, id: userData.id },
-    config.accessTokenSecret as string,
+    config.accessTokenSecret as Secret,
     {
       expiresIn: config.accessTokenExpiresOn as string,
     },

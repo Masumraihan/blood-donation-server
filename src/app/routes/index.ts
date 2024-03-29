@@ -1,12 +1,17 @@
 import express from "express";
-import { UserRoutes } from "../modules/auth/auth.route";
+import { AuthRoutes } from "../modules/auth/auth.route";
+import { BloodRequestRoutes } from "../modules/bloodRequest/bloodRequest.routes";
 
 const router = express.Router();
 
 const modulesRoutes = [
   {
     path: "/",
-    route: UserRoutes,
+    route: AuthRoutes,
+  },
+  {
+    path: "/",
+    route: BloodRequestRoutes,
   },
 ];
 

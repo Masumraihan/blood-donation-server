@@ -46,7 +46,7 @@ model BloodRequest {
   dateOfDonation String
   hospitalName   String
   reason         String
-  requestStatus  RequestStatus
+  requestStatus  RequestStatus @default(PENDING)
   createdAt      DateTime      @default(now())
   updateAt       DateTime      @updatedAt
 

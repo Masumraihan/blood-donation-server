@@ -18,7 +18,6 @@ const globalErrorHandler = (error: any, req: Request, res: Response, next: NextF
     success: false,
     message: errorResponse.message,
     errorDetails: errorResponse.errorDetails,
-    error,
   });
 };
 
