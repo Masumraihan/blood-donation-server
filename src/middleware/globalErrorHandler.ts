@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { TErrorResponse, TIssue } from "../types/error";
-import zodError from "./zodError";
+import zodError from "../errors/zodError";
 
 const globalErrorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
   let statusCode = 500;
