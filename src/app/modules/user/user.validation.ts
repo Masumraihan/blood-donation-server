@@ -1,6 +1,5 @@
-import { BloodType } from "@prisma/client";
 import { z } from "zod";
-import { BloodTypes } from "./user.contant";
+import { BloodTypes } from "./user.constant";
 
 const createUserValidation = z.object({
   body: z.object({
@@ -12,13 +11,16 @@ const createUserValidation = z.object({
       email: z.string({ required_error: "Email is required" }).email({ message: "Invalid Email" }),
       bloodType: z.string({ required_error: "Blood type is required" }).refine(
         (val) => {
-          return BloodTypes.includes(val as BloodType);
+          return BloodTypes.includes(val);
         },
         {
           message: "Please provide a valid blood type (A_POSITIVE)",
         },
       ),
+      age: z.number({ required_error: "Age is required" }),
+      bio: z.string({ required_error: "Bio is required" }),
       location: z.string({ required_error: "Location is required" }),
+      lastDonationDate: z.string({ required_error: "Last donation date is required" }),
     }),
   }),
 });

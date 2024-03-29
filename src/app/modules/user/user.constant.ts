@@ -1,4 +1,4 @@
-export const BloodTypes = [
+export const BloodTypes: string[] = [
   "A_POSITIVE",
   "A_NEGATIVE",
   "B_POSITIVE",

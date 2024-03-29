@@ -29,7 +29,7 @@ model UserProfile {
   userId           String   @unique
   bio              String
   age              Int
-  lastDanationDate String
+  lastDonationDate String
   createdAt        DateTime @default(now())
   updateAt         DateTime @updatedAt
 
