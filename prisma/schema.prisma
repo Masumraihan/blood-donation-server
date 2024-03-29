@@ -39,19 +39,22 @@ model UserProfile {
 }
 
 model BloodRequest {
-  id             String        @id @default(uuid())
-  donorId        String
-  requesterId    String
-  phoneNumber    String
-  dateOfDonation String
-  hospitalName   String
-  reason         String
-  requestStatus  RequestStatus @default(PENDING)
-  createdAt      DateTime      @default(now())
-  updateAt       DateTime      @updatedAt
+  id              String        @id @default(uuid())
+  donorId         String
+  requesterId     String
+  phoneNumber     String
+  dateOfDonation  String
+  hospitalName    String
+  hospitalAddress String
+  reason          String
+  requestStatus   RequestStatus @default(PENDING)
+  createdAt       DateTime      @default(now())
+  updateAt        DateTime      @updatedAt
 
   donor     User @relation(name: "doner", fields: [donorId], references: [id])
   requester User @relation(name: "requester", fields: [requesterId], references: [id])
+
+  @@map("bloodRequests")
 }
 
 enum BloodType {

@@ -1,8 +1,15 @@
-import { BloodRequest } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../shared/prisma";
 
-const createBloodRequestIntoDb = async (payload: BloodRequest, user: JwtPayload) => {
+type TPayload = {
+  donorId: string;
+  phoneNumber: string;
+  dateOfDonation: string;
+  hospitalName: string;
+  reason: string;
+};
+
+const createBloodRequestIntoDb = async (payload: TPayload, user: JwtPayload) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       id: user.id,
@@ -10,9 +17,33 @@ const createBloodRequestIntoDb = async (payload: BloodRequest, user: JwtPayload)
   });
 
   const result = await prisma.bloodRequest.create({
-    data: payload,
+    data: { ...payload, requesterId: userData.id },
+    include: {
+      donor: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          bloodType: true,
+          location: true,
+          availability: true,
+          createdAt: true,
+          updateAt: true,
+          userProfile: true,
+        },
+      },
+    },
   });
-return result;
+  return result;
 };
 
-export const BloodRequestServices = { createBloodRequestIntoDb };
+const getAllBloodRequestsFromDb = async (query: Record<string, unknown>) => {
+
+
+  
+
+  const result = await prisma.bloodRequest.findMany();
+  return result;
+};
+
+export const BloodRequestServices = { createBloodRequestIntoDb, getAllBloodRequestsFromDb };

@@ -1,8 +1,18 @@
 import express from "express";
-import { BloodRequestController } from "./bloodRequest.controller";
+import { BloodRequestControllers } from "./bloodRequest.controller";
 import auth from "../../../middleware/auth";
+import validateRequest from "../../../middleware/validateRequest";
+import { BloodRequestValidations } from "./bloodRequest.validation";
 
 const router = express.Router();
 
-router.post("/donation-request", auth(), BloodRequestController.createBloodRequest);
+router.post(
+  "/donation-request",
+  auth(),
+  validateRequest(BloodRequestValidations.createBloodRequestValidation),
+  BloodRequestControllers.createBloodRequest,
+);
+
+router.get("/donor-list", BloodRequestControllers.getAllBloodRequests);
+
 export const BloodRequestRoutes = router;
