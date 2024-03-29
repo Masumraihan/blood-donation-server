@@ -1,6 +1,10 @@
 import { User, UserProfile } from "@prisma/client";
 import bcrypt from "bcrypt";
 import prisma from "../../../shared/prisma";
+import ApiError from "../../../errors/ApiError";
+import { StatusCodes } from "http-status-codes";
+import jwt from "jsonwebtoken";
+import config from "../../../config";
 
 const registerIntoDb = async (payload: User & UserProfile) => {
   const password = payload.password;
@@ -41,8 +45,18 @@ const loginIntoDb = async ({ email, password }: { email: string; password: strin
   const isMatch = await bcrypt.compare(password, userData.password);
 
   if (!isMatch) {
-    throw new Error("Invalid email or password");
+    throw new ApiError(StatusCodes.BAD_REQUEST, "Password is incorrect");
   }
+
+  const accessToken = jwt.sign(
+    { email: userData.email, id: userData.id },
+    config.accessTokenSecret as string,
+    {
+      expiresIn: config.accessTokenExpiresOn as string,
+    },
+  );
+
+  return { id: userData.id, name: userData.name, email: userData.email, token: accessToken };
 };
 
 export const AuthServices = { registerIntoDb, loginIntoDb };
