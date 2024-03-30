@@ -8,15 +8,30 @@ import { userFilterableFields } from "./user.constant";
 const getAllBloodRequests = catchAsync(async (req, res) => {
   const filter = pick(req.query, userFilterableFields);
   const paginateOptions = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
-  const result = await UserServices.getAllUsersFromDb(filter, paginateOptions);
+  const { result, limit, page, total } = await UserServices.getAllUsersFromDb(
+    filter,
+    paginateOptions,
+  );
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
     message: "Blood Requests fetched successfully",
+    meta: { limit, page, total },
+    data: result,
+  });
+});
+
+const getMyProfile = catchAsync(async (req, res) => {
+  const result = await UserServices.getMyProfileFromDb(req.user);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "My Profile fetched successfully",
     data: result,
   });
 });
 
 export const UserController = {
   getAllBloodRequests,
+  getMyProfile,
 };

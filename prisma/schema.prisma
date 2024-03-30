@@ -17,9 +17,9 @@ model User {
   availability           Boolean        @default(false)
   createdAt              DateTime       @default(now())
   updateAt               DateTime       @updatedAt
-  userProfile            UserProfile[]
   requestedBloodRequests BloodRequest[] @relation(name: "doner")
   donatedBloodRequests   BloodRequest[] @relation(name: "requester")
+  userProfile            UserProfile?
 
   @@map("users")
 }

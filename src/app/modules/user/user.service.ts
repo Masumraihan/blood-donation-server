@@ -4,6 +4,7 @@ import { userSearchableField } from "./user.constant";
 import { TUserFilter } from "./user.interface";
 import { TPaginationOptions } from "../../../types/paginate";
 import { PaginateHelpers } from "../../../helpers/paginateHelper";
+import { JwtPayload } from "jsonwebtoken";
 
 const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginationOptions) => {
   const andConditions: Prisma.UserWhereInput[] = [];
@@ -39,8 +40,6 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
     });
   }
 
-  console.log({ sortBy, sortOrder });
-
   const whereCondition: Prisma.UserWhereInput = { AND: andConditions };
 
   const result = await prisma.user.findMany({
@@ -63,9 +62,22 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
     },
   });
 
-  return result;
+  const total = await prisma.user.count();
+
+  return { result, total, limit, page };
+};
+
+const getMyProfileFromDb = async (user: JwtPayload) => {
+  const { password, ...userData } = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: user.id,
+    },
+    include: { userProfile: true },
+  });
+  return userData;
 };
 
 export const UserServices = {
   getAllUsersFromDb,
+  getMyProfileFromDb,
 };
