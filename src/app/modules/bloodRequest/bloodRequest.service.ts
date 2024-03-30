@@ -7,6 +7,7 @@ type TPayload = {
   phoneNumber: string;
   dateOfDonation: string;
   hospitalName: string;
+  hospitalAddress: string;
   reason: string;
 };
 
@@ -50,7 +51,16 @@ const getMyDonationsFromDb = async (user: JwtPayload) => {
       donorId: userData.id,
     },
     include: {
-      requester: true,
+      requester: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          location: true,
+          bloodType: true,
+          availability: true,
+        },
+      },
     },
   });
   return result;

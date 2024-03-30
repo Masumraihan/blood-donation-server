@@ -1,8 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../../shared/catchAsync";
-import { BloodRequestServices } from "./bloodRequest.service";
 import sendResponse from "../../../shared/sendResponse";
-import pick from "../../../shared/pick";
+import { BloodRequestServices } from "./bloodRequest.service";
 
 const createBloodRequest = catchAsync(async (req, res) => {
   const result = await BloodRequestServices.createBloodRequestIntoDb(req.body, req.user);
