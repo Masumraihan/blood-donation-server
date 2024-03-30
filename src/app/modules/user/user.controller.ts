@@ -26,7 +26,17 @@ const getMyProfile = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "My Profile fetched successfully",
+    message: "Profile retrieved successfully",
+    data: result,
+  });
+});
+
+const updateMyProfile = catchAsync(async (req, res) => {
+  const result = await UserServices.updateMyProfileIntoDb(req.body, req.user);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "User profile updated successfully",
     data: result,
   });
 });
@@ -34,4 +44,5 @@ const getMyProfile = catchAsync(async (req, res) => {
 export const UserController = {
   getAllBloodRequests,
   getMyProfile,
+  updateMyProfile,
 };

@@ -1,3 +1,4 @@
+import { RequestStatus } from "@prisma/client";
 import { z } from "zod";
 
 const createBloodRequestValidation = z.object({
@@ -11,6 +12,13 @@ const createBloodRequestValidation = z.object({
   }),
 });
 
+const updateBloodRequestStatusValidation = z.object({
+  body: z.object({
+    requestStatus: z.enum(Object.keys(RequestStatus) as [string, ...string[]]),
+  }),
+});
+
 export const BloodRequestValidations = {
   createBloodRequestValidation,
+  updateBloodRequestStatusValidation,
 };

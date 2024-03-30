@@ -9,9 +9,36 @@ const createBloodRequest = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: StatusCodes.CREATED,
-    message: "Blood request created successfully",
+    message: "Request successfully made",
     data: result,
   });
 });
 
-export const BloodRequestControllers = { createBloodRequest };
+const getMyDonations = catchAsync(async (req, res) => {
+  const result = await BloodRequestServices.getMyDonationsFromDb(req.user);
+  sendResponse(res, {
+    success: true,
+    statusCode: StatusCodes.OK,
+    message: "Donation requests retrieved successfully",
+    data: result,
+  });
+});
+
+const updateBloodRequestStatus = catchAsync(async (req, res) => {
+  const result = await BloodRequestServices.updateBloodRequestStatusInfoDb(
+    req.body,
+    req.params.requestId,
+  );
+  sendResponse(res, {
+    success: true,
+    statusCode: StatusCodes.OK,
+    message: "Donation request status successfully updated",
+    data: result,
+  });
+});
+
+export const BloodRequestControllers = {
+  createBloodRequest,
+  getMyDonations,
+  updateBloodRequestStatus,
+};

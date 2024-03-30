@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { userSearchableField } from "./user.constant";
 import { TUserFilter } from "./user.interface";
@@ -77,7 +77,32 @@ const getMyProfileFromDb = async (user: JwtPayload) => {
   return userData;
 };
 
+const updateMyProfileIntoDb = async (payload: Partial<User>, user: JwtPayload) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: user.id,
+    },
+  });
+  const result = await prisma.userProfile.update({
+    where: {
+      userId: userData.id,
+    },
+    data: payload,
+    select: {
+      id: true,
+      userId: true,
+      bio: true,
+      age: true,
+      lastDonationDate: true,
+      createdAt: true,
+      updateAt: true,
+    },
+  });
+  return result;
+};
+
 export const UserServices = {
   getAllUsersFromDb,
   getMyProfileFromDb,
+  updateMyProfileIntoDb,
 };

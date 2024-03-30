@@ -13,4 +13,12 @@ router.post(
   BloodRequestControllers.createBloodRequest,
 );
 
+router.get("/donation-request", auth(), BloodRequestControllers.getMyDonations);
+router.put(
+  "/donation-request/:requestId",
+  auth(),
+  validateRequest(BloodRequestValidations.updateBloodRequestStatusValidation),
+  BloodRequestControllers.updateBloodRequestStatus,
+);
+
 export const BloodRequestRoutes = router;
