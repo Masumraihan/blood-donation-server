@@ -41,6 +41,10 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
   }
 
   const whereCondition: Prisma.UserWhereInput = { AND: andConditions };
+  const sortOptions =
+    sortBy === "name"
+      ? { [sortBy]: sortOrder as Prisma.SortOrder }
+      : { userProfile: { [sortBy]: sortOrder } };
 
   const result = await prisma.user.findMany({
     where: whereCondition,
@@ -55,11 +59,9 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
       availability: true,
       createdAt: true,
       updateAt: true,
-      userProfile: true,
+      userProfile: true, // this is other table
     },
-    orderBy: {
-      [sortBy]: sortOrder,
-    },
+    orderBy: sortOptions,
   });
 
   const total = await prisma.user.count();
