@@ -55,3 +55,6 @@ For testing purposes, you can use the following default credentials:
 ## Live Demo
 
 You can view a live demo of the Blood Donation System [here](https://blood-donation-phi.vercel.app/).
+
+## Explanation Video 
+[Video Link](https://drive.google.com/file/d/1cUUDgFYPw1FnfVF2r4Jw1Uq559d7Qv2I/view?usp=sharing)
