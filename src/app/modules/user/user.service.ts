@@ -87,6 +87,7 @@ const updateMyProfileIntoDb = async (payload: Partial<User>, user: JwtPayload) =
       id: user.id,
     },
   });
+
   const result = await prisma.userProfile.update({
     where: {
       userId: userData.id,
