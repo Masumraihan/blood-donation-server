@@ -171,7 +171,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
@@ -181,6 +181,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -189,8 +190,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                     String         @id @default(uuid())\n  name                   String\n  email                  String         @unique\n  password               String\n  bloodType              String\n  location               String\n  availability           Boolean        @default(false)\n  createdAt              DateTime       @default(now())\n  updateAt               DateTime       @updatedAt\n  requestedBloodRequests BloodRequest[] @relation(name: \"doner\")\n  donatedBloodRequests   BloodRequest[] @relation(name: \"requester\")\n  userProfile            UserProfile?\n\n  @@map(\"users\")\n}\n\nmodel UserProfile {\n  id               String   @id @default(uuid())\n  userId           String   @unique\n  bio              String\n  age              Int\n  lastDonationDate String\n  createdAt        DateTime @default(now())\n  updateAt         DateTime @updatedAt\n\n  user User @relation(fields: [userId], references: [id])\n\n  @@map(\"userProfiles\")\n}\n\nmodel BloodRequest {\n  id              String        @id @default(uuid())\n  donorId         String\n  requesterId     String\n  phoneNumber     String\n  dateOfDonation  String\n  hospitalName    String\n  hospitalAddress String\n  reason          String\n  requestStatus   RequestStatus @default(PENDING)\n  createdAt       DateTime      @default(now())\n  updateAt        DateTime      @updatedAt\n\n  donor     User @relation(name: \"doner\", fields: [donorId], references: [id])\n  requester User @relation(name: \"requester\", fields: [requesterId], references: [id])\n\n  @@map(\"bloodRequests\")\n}\n\nenum RequestStatus {\n  PENDING\n  APPROVED\n  REJECTED\n}\n",
-  "inlineSchemaHash": "d14dc7c59d072df27321119ae27c6371d8a57961fa77ae1191e51cf11d948d8a",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id                     String         @id @default(uuid())\n  name                   String\n  email                  String         @unique\n  password               String\n  bloodType              String\n  location               String\n  availability           Boolean        @default(false)\n  createdAt              DateTime       @default(now())\n  updateAt               DateTime       @updatedAt\n  requestedBloodRequests BloodRequest[] @relation(name: \"doner\")\n  donatedBloodRequests   BloodRequest[] @relation(name: \"requester\")\n  userProfile            UserProfile?\n\n  @@map(\"users\")\n}\n\nmodel UserProfile {\n  id               String   @id @default(uuid())\n  userId           String   @unique\n  bio              String\n  age              Int\n  lastDonationDate String\n  createdAt        DateTime @default(now())\n  updateAt         DateTime @updatedAt\n\n  user User @relation(fields: [userId], references: [id])\n\n  @@map(\"userProfiles\")\n}\n\nmodel BloodRequest {\n  id              String        @id @default(uuid())\n  donorId         String\n  requesterId     String\n  phoneNumber     String\n  dateOfDonation  String\n  hospitalName    String\n  hospitalAddress String\n  reason          String\n  requestStatus   RequestStatus @default(PENDING)\n  createdAt       DateTime      @default(now())\n  updateAt        DateTime      @updatedAt\n\n  donor     User @relation(name: \"doner\", fields: [donorId], references: [id])\n  requester User @relation(name: \"requester\", fields: [requesterId], references: [id])\n\n  @@map(\"bloodRequests\")\n}\n\nenum RequestStatus {\n  PENDING\n  APPROVED\n  REJECTED\n}\n",
+  "inlineSchemaHash": "bd45462d080b0bde59d0b77c811f8c6c1b228fddd8c8300727d0658be6981ce8",
   "copyEngine": true
 }
 config.dirname = '/'

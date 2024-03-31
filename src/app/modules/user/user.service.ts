@@ -29,7 +29,7 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
       AND: Object.keys(filterQuery).map((field) => {
         let query = (filterQuery as any)[field];
         if (field === "availability") {
-          query = Boolean(filterQuery[field]);
+          query = filterQuery[field] === "true" ? true : false;
         }
         return {
           [field]: {
@@ -41,10 +41,12 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
   }
 
   const whereCondition: Prisma.UserWhereInput = { AND: andConditions };
-  const sortOptions =
+  const sortConditions =
     sortBy === "name"
       ? { [sortBy]: sortOrder as Prisma.SortOrder }
       : { userProfile: { [sortBy]: sortOrder } };
+
+  console.dir(andConditions, { depth: null });
 
   const result = await prisma.user.findMany({
     where: whereCondition,
@@ -61,7 +63,7 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
       updateAt: true,
       userProfile: true, // this is other table
     },
-    orderBy: sortOptions,
+    orderBy: sortConditions,
   });
 
   const total = await prisma.user.count();
