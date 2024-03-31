@@ -1,6 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../shared/prisma";
-import { RequestStatus } from "@prisma/client";
+import { BloodRequest, RequestStatus } from "@prisma/client";
 
 type TPayload = {
   donorId: string;
@@ -66,17 +66,12 @@ const getMyDonationsFromDb = async (user: JwtPayload) => {
   return result;
 };
 
-const updateBloodRequestStatusInfoDb = async (
-  payload: { requestStatus: RequestStatus },
-  id: string,
-) => {
+const updateBloodRequestStatusInfoDb = async (payload: Partial<BloodRequest>, id: string) => {
   const result = await prisma.bloodRequest.update({
     where: {
       id,
     },
-    data: {
-      requestStatus: payload.requestStatus,
-    },
+    data: payload,
   });
   return result;
 };

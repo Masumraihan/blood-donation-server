@@ -46,9 +46,6 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
     where: whereCondition,
     skip,
     take: limit,
-    orderBy: {
-      [sortBy]: sortOrder,
-    },
     select: {
       id: true,
       name: true,
@@ -59,6 +56,9 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
       createdAt: true,
       updateAt: true,
       userProfile: true,
+    },
+    orderBy: {
+      [sortBy]: sortOrder,
     },
   });
 
