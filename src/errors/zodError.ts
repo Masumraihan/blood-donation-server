@@ -1,4 +1,4 @@
-import { TErrorResponse, TIssue } from "../types/error";
+import { TErrorResponse } from "../types/error";
 
 const zodError = (error: any): TErrorResponse => {
   const issues = error.issues.map((issue: any) => ({

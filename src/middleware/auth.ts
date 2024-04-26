@@ -11,10 +11,9 @@ const auth = () => {
       throw new ApiError(StatusCodes.UNAUTHORIZED, "unauthorized");
     }
 
-    const accessToken = token.split(" ")[1];
     let decoded: JwtPayload = {};
     try {
-      decoded = jwt.verify(accessToken, config.accessTokenSecret as Secret) as JwtPayload;
+      decoded = jwt.verify(token, config.accessTokenSecret as Secret) as JwtPayload;
     } catch (error) {
       next(error);
     }
