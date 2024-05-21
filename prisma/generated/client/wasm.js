@@ -123,9 +123,11 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  phoneNumber: 'phoneNumber',
   password: 'password',
   bloodType: 'bloodType',
   location: 'location',
+  role: 'role',
   availability: 'availability',
   createdAt: 'createdAt',
   updateAt: 'updateAt'
@@ -134,6 +136,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.UserProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  photo: 'photo',
   bio: 'bio',
   age: 'age',
   lastDonationDate: 'lastDonationDate',
@@ -164,6 +167,16 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  DONOR: 'DONOR',
+  ADMIN: 'ADMIN'
+};
+
 exports.RequestStatus = exports.$Enums.RequestStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',

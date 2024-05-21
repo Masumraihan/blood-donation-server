@@ -71,6 +71,8 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
   return { result, total, limit, page };
 };
 
+
+
 const getMyProfileFromDb = async (user: JwtPayload) => {
   const { password, ...userData } = await prisma.user.findUniqueOrThrow({
     where: {

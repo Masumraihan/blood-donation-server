@@ -63,7 +63,14 @@ const getMyDonationsFromDb = async (user: JwtPayload) => {
       },
     },
   });
-  return result;
+  const modifyResult = result.map(({ requester, ...data }) => {
+    if (data.requestStatus === RequestStatus.APPROVED) {
+      return { ...data, requester };
+    } else {
+      return { ...data };
+    }
+  });
+  return modifyResult;
 };
 
 const updateBloodRequestStatusInfoDb = async (payload: Partial<BloodRequest>, id: string) => {
