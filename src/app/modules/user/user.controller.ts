@@ -53,6 +53,17 @@ const getSingleDonor = catchAsync(async (req, res) => {
   });
 });
 
+const getTestimonial = catchAsync(async (req, res) => {
+  console.log({test:"test"});
+  const result = await UserServices.getTestimonialsFromDb();
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Testimonial added successfully",
+    data: result,
+  });
+});
+
 const getMyProfile = catchAsync(async (req, res) => {
   const result = await UserServices.getMyProfileFromDb(req.user);
   sendResponse(res, {
@@ -80,4 +91,5 @@ export const UserController = {
   getSingleUser,
   getAllDonor,
   getSingleDonor,
+  getTestimonial,
 };

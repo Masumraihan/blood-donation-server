@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { ZodError } from "zod";
-import { TErrorResponse, TIssue } from "../types/error";
-import zodError from "../errors/zodError";
-import { JsonWebTokenError } from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
-import jwtError from "../errors/jwtError";
+import { JsonWebTokenError } from "jsonwebtoken";
+import { ZodError } from "zod";
 import ApiError from "../errors/ApiError";
+import jwtError from "../errors/jwtError";
+import zodError from "../errors/zodError";
+import { TErrorResponse } from "../types/error";
 
 const globalErrorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
   let statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
@@ -28,6 +28,7 @@ const globalErrorHandler = (error: any, req: Request, res: Response, next: NextF
     success: false,
     message: errorResponse.message,
     errorDetails: errorResponse.errorDetails,
+    error,
   });
 };
 

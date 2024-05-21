@@ -18,8 +18,7 @@ const auth = (...roles: UserRole[]) => {
     } catch (error) {
       next(error);
     }
-
-    if (!roles.includes(decoded.role)) {
+    if (roles.length && !roles.includes(decoded.role)) {
       throw new ApiError(
         StatusCodes.UNAUTHORIZED,
         "your are not authorized to access this resource",

@@ -1122,6 +1122,8 @@ export namespace Prisma {
     bloodType: string | null
     location: string | null
     role: $Enums.UserRole | null
+    isDonate: boolean | null
+    isRequest: boolean | null
     availability: boolean | null
     createdAt: Date | null
     updateAt: Date | null
@@ -1136,6 +1138,8 @@ export namespace Prisma {
     bloodType: string | null
     location: string | null
     role: $Enums.UserRole | null
+    isDonate: boolean | null
+    isRequest: boolean | null
     availability: boolean | null
     createdAt: Date | null
     updateAt: Date | null
@@ -1150,6 +1154,8 @@ export namespace Prisma {
     bloodType: number
     location: number
     role: number
+    isDonate: number
+    isRequest: number
     availability: number
     createdAt: number
     updateAt: number
@@ -1166,6 +1172,8 @@ export namespace Prisma {
     bloodType?: true
     location?: true
     role?: true
+    isDonate?: true
+    isRequest?: true
     availability?: true
     createdAt?: true
     updateAt?: true
@@ -1180,6 +1188,8 @@ export namespace Prisma {
     bloodType?: true
     location?: true
     role?: true
+    isDonate?: true
+    isRequest?: true
     availability?: true
     createdAt?: true
     updateAt?: true
@@ -1194,6 +1204,8 @@ export namespace Prisma {
     bloodType?: true
     location?: true
     role?: true
+    isDonate?: true
+    isRequest?: true
     availability?: true
     createdAt?: true
     updateAt?: true
@@ -1281,6 +1293,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role: $Enums.UserRole
+    isDonate: boolean
+    isRequest: boolean
     availability: boolean
     createdAt: Date
     updateAt: Date
@@ -1312,6 +1326,8 @@ export namespace Prisma {
     bloodType?: boolean
     location?: boolean
     role?: boolean
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -1330,6 +1346,8 @@ export namespace Prisma {
     bloodType?: boolean
     location?: boolean
     role?: boolean
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -1359,6 +1377,8 @@ export namespace Prisma {
       bloodType: string
       location: string
       role: $Enums.UserRole
+      isDonate: boolean
+      isRequest: boolean
       availability: boolean
       createdAt: Date
       updateAt: Date
@@ -1769,6 +1789,8 @@ export namespace Prisma {
     readonly bloodType: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly isDonate: FieldRef<"User", 'Boolean'>
+    readonly isRequest: FieldRef<"User", 'Boolean'>
     readonly availability: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updateAt: FieldRef<"User", 'DateTime'>
@@ -4154,6 +4176,8 @@ export namespace Prisma {
     bloodType: 'bloodType',
     location: 'location',
     role: 'role',
+    isDonate: 'isDonate',
+    isRequest: 'isRequest',
     availability: 'availability',
     createdAt: 'createdAt',
     updateAt: 'updateAt'
@@ -4328,6 +4352,8 @@ export namespace Prisma {
     bloodType?: StringFilter<"User"> | string
     location?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    isDonate?: BoolFilter<"User"> | boolean
+    isRequest?: BoolFilter<"User"> | boolean
     availability?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -4345,6 +4371,8 @@ export namespace Prisma {
     bloodType?: SortOrder
     location?: SortOrder
     role?: SortOrder
+    isDonate?: SortOrder
+    isRequest?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4365,6 +4393,8 @@ export namespace Prisma {
     bloodType?: StringFilter<"User"> | string
     location?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    isDonate?: BoolFilter<"User"> | boolean
+    isRequest?: BoolFilter<"User"> | boolean
     availability?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -4382,6 +4412,8 @@ export namespace Prisma {
     bloodType?: SortOrder
     location?: SortOrder
     role?: SortOrder
+    isDonate?: SortOrder
+    isRequest?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4402,6 +4434,8 @@ export namespace Prisma {
     bloodType?: StringWithAggregatesFilter<"User"> | string
     location?: StringWithAggregatesFilter<"User"> | string
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    isDonate?: BoolWithAggregatesFilter<"User"> | boolean
+    isRequest?: BoolWithAggregatesFilter<"User"> | boolean
     availability?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -4576,6 +4610,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -4593,6 +4629,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -4610,6 +4648,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4627,6 +4667,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4644,6 +4686,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -4658,6 +4702,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4672,6 +4718,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4931,6 +4979,8 @@ export namespace Prisma {
     bloodType?: SortOrder
     location?: SortOrder
     role?: SortOrder
+    isDonate?: SortOrder
+    isRequest?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4945,6 +4995,8 @@ export namespace Prisma {
     bloodType?: SortOrder
     location?: SortOrder
     role?: SortOrder
+    isDonate?: SortOrder
+    isRequest?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4959,6 +5011,8 @@ export namespace Prisma {
     bloodType?: SortOrder
     location?: SortOrder
     role?: SortOrder
+    isDonate?: SortOrder
+    isRequest?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -5723,6 +5777,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5739,6 +5795,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5771,6 +5829,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5787,6 +5847,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5803,6 +5865,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5819,6 +5883,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5840,6 +5906,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5856,6 +5924,8 @@ export namespace Prisma {
     bloodType: string
     location: string
     role?: $Enums.UserRole
+    isDonate?: boolean
+    isRequest?: boolean
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5888,6 +5958,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5904,6 +5976,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5931,6 +6005,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5947,6 +6023,8 @@ export namespace Prisma {
     bloodType?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isDonate?: BoolFieldUpdateOperationsInput | boolean
+    isRequest?: BoolFieldUpdateOperationsInput | boolean
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string

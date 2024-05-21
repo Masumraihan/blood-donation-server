@@ -185,29 +185,30 @@ const getSingleDonorFromDb = async (id: string) => {
   return result;
 };
 
-const testimonials = async () => {
+const getTestimonialsFromDb = async () => {
+
+  console.log("here");
+
   const result = await prisma.user.findMany({
     where: {
-      donatedBloodRequests: {
-        some: {
-          //isDonated: true,
+      OR: [
+        {
+          isDonate: true,
         },
-      },
+        {
+          isRequest: true,
+        },
+      ],
     },
     select: {
       id: true,
       name: true,
       email: true,
-      phoneNumber: true,
       bloodType: true,
       location: true,
-      availability: true,
-      role: true,
-      createdAt: true,
-      updateAt: true,
-      userProfile: true,
     },
   });
+  console.log({result});
   return result;
 };
 
@@ -253,4 +254,5 @@ export const UserServices = {
   getSingleUserFromDb,
   getAllDonorFromDb,
   getSingleDonorFromDb,
+  getTestimonialsFromDb,
 };

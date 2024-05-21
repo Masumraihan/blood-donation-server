@@ -1,6 +1,7 @@
 import { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../shared/prisma";
 import { BloodRequest, RequestStatus } from "@prisma/client";
+import { UserRole } from "../../../../prisma/generated/client";
 
 type TPayload = {
   donorId: string;
@@ -18,24 +19,46 @@ const createBloodRequestIntoDb = async (payload: TPayload, user: JwtPayload) => 
     },
   });
 
-  const result = await prisma.bloodRequest.create({
-    data: { ...payload, requesterId: userData.id },
-    include: {
-      donor: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          bloodType: true,
-          location: true,
-          availability: true,
-          createdAt: true,
-          updateAt: true,
-          userProfile: true,
-        },
-      },
+  await prisma.user.findUniqueOrThrow({
+    where: {
+      id: payload.donorId,
+      role: UserRole.DONOR,
     },
   });
+
+  const result = await prisma.$transaction(async (transactionClient) => {
+    if (userData.isRequest === false) {
+      await transactionClient.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          isRequest: true,
+        },
+      });
+    }
+
+    const data = await transactionClient.bloodRequest.create({
+      data: { ...payload, requesterId: userData.id },
+      include: {
+        donor: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            bloodType: true,
+            location: true,
+            availability: true,
+            createdAt: true,
+            updateAt: true,
+            userProfile: true,
+          },
+        },
+      },
+    });
+    return data;
+  });
+
   return result;
 };
 

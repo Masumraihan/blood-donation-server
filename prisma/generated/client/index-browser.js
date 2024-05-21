@@ -128,6 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   bloodType: 'bloodType',
   location: 'location',
   role: 'role',
+  isDonate: 'isDonate',
+  isRequest: 'isRequest',
   availability: 'availability',
   createdAt: 'createdAt',
   updateAt: 'updateAt'
