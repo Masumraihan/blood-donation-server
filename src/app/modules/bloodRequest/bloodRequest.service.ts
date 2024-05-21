@@ -106,8 +106,44 @@ const updateBloodRequestStatusInfoDb = async (payload: Partial<BloodRequest>, id
   return result;
 };
 
+const getMyRequestsFromDb = async (user: JwtPayload) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: user.id,
+    },
+  });
+  const result = await prisma.bloodRequest.findMany({
+    where: {
+      requesterId: userData.id,
+    },
+    include: {
+      donor: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          location: true,
+          bloodType: true,
+          availability: true,
+        },
+      },
+    },
+  });
+
+  const modifyResult = result.map(({ donor, ...data }) => {
+    if (data.requestStatus === RequestStatus.APPROVED) {
+      return { ...data, donor };
+    } else {
+      return { ...data };
+    }
+  });
+
+  return modifyResult;
+};
+
 export const BloodRequestServices = {
   createBloodRequestIntoDb,
   getMyDonationsFromDb,
   updateBloodRequestStatusInfoDb,
+  getMyRequestsFromDb,
 };

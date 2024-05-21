@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { BloodTypes } from "../auth/auth.constant";
-// all filed should be optional
 
 const updateProfile = z.object({
   body: z
