@@ -17,6 +17,8 @@ model User {
   bloodType              String
   location               String
   role                   UserRole       @default(DONOR)
+  isDonate               Boolean        @default(false)
+  isRequest              Boolean        @default(false)
   availability           Boolean        @default(false)
   createdAt              DateTime       @default(now())
   updateAt               DateTime       @updatedAt

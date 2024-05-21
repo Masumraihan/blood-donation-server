@@ -49,7 +49,7 @@ const loginIntoDb = async ({ email, password }: { email: string; password: strin
   }
 
   const accessToken = jwt.sign(
-    { email: userData.email, id: userData.id },
+    { email: userData.email, id: userData.id, role: userData.role }, 
     config.accessTokenSecret as Secret,
     {
       expiresIn: config.accessTokenExpiresOn as string,

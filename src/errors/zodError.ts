@@ -1,13 +1,15 @@
+import { StatusCodes } from "http-status-codes";
 import { TErrorResponse } from "../types/error";
+import { ZodError } from "zod";
 
-const zodError = (error: any): TErrorResponse => {
-  const issues = error.issues.map((issue: any) => ({
+const zodError = (error: ZodError): TErrorResponse => {
+  const issues = error.issues.map((issue) => ({
     field: issue.path[issue.path.length - 1] || "unknown",
     message: issue.message,
   }));
 
   return {
-    statusCode: 400,
+    statusCode: StatusCodes.BAD_REQUEST,
     message: "validation error",
     errorDetails: {
       issues,

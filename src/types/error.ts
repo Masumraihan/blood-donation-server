@@ -6,5 +6,5 @@ export type TIssue = {
 export type TErrorResponse = {
   statusCode: number;
   message: string;
-  errorDetails: { issues: TIssue[] };
+  errorDetails: { issues: TIssue[] } | null;
 };

@@ -5,7 +5,7 @@ import sendResponse from "../../../shared/sendResponse";
 import { UserServices } from "./user.service";
 import { userFilterableFields } from "./user.constant";
 
-const getAllBloodRequests = catchAsync(async (req, res) => {
+const getAllUsers = catchAsync(async (req, res) => {
   const filter = pick(req.query, userFilterableFields);
   const paginateOptions = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
   const { result, limit, page, total } = await UserServices.getAllUsersFromDb(
@@ -15,8 +15,40 @@ const getAllBloodRequests = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Blood Requests fetched successfully",
+    message: "Users fetched successfully",
     meta: { limit, page, total },
+    data: result,
+  });
+});
+
+const getSingleUser = catchAsync(async (req, res) => {
+  const result = await UserServices.getSingleUserFromDb(req.params.id);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
+
+const getAllDonor = catchAsync(async (req, res) => {
+  const filter = pick(req.query, userFilterableFields);
+  const paginateOptions = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+  const result = await UserServices.getAllDonorFromDb(filter, paginateOptions);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Donors retrieved successfully",
+    data: result,
+  });
+});
+
+const getSingleDonor = catchAsync(async (req, res) => {
+  const result = await UserServices.getSingleDonorFromDb(req.params.id);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "donor retrieved successfully",
     data: result,
   });
 });
@@ -42,7 +74,10 @@ const updateMyProfile = catchAsync(async (req, res) => {
 });
 
 export const UserController = {
-  getAllBloodRequests,
+  getAllUsers,
   getMyProfile,
   updateMyProfile,
+  getSingleUser,
+  getAllDonor,
+  getSingleDonor,
 };
