@@ -5,7 +5,7 @@ import { TUserFilter } from "./user.interface";
 import { TPaginationOptions } from "../../../types/paginate";
 import { PaginateHelpers } from "../../../helpers/paginateHelper";
 import { JwtPayload } from "jsonwebtoken";
-import { UserRole } from "../../../../prisma/generated/client";
+import { UserRole, UserStatus } from "../../../../prisma/generated/client";
 
 const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginationOptions) => {
   const andConditions: Prisma.UserWhereInput[] = [];
@@ -186,7 +186,6 @@ const getSingleDonorFromDb = async (id: string) => {
 };
 
 const getTestimonialsFromDb = async () => {
-
   console.log("here");
 
   const result = await prisma.user.findMany({
@@ -208,7 +207,7 @@ const getTestimonialsFromDb = async () => {
       location: true,
     },
   });
-  console.log({result});
+  console.log({ result });
   return result;
 };
 
@@ -247,7 +246,33 @@ const updateMyProfileIntoDb = async (payload: Partial<User>, user: JwtPayload) =
   return result;
 };
 
+const updateUserIntoDb = async (id: string, payload: { status: UserStatus; role: UserRole }) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
 
+  const result = await prisma.user.update({
+    where: {
+      id: userData.id,
+    },
+    data: payload,
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      phoneNumber: true,
+      bloodType: true,
+      location: true,
+      availability: true,
+      role: true,
+      createdAt: true,
+      updateAt: true,
+    },
+  });
+  return result;
+};
 
 export const UserServices = {
   getAllUsersFromDb,
@@ -257,4 +282,5 @@ export const UserServices = {
   getAllDonorFromDb,
   getSingleDonorFromDb,
   getTestimonialsFromDb,
+  updateUserIntoDb,
 };

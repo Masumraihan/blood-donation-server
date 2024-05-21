@@ -41,6 +41,14 @@ export namespace $Enums {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
+export const UserStatus: {
+  ACTIVE: 'ACTIVE',
+  DEACTIVATE: 'DEACTIVATE'
+};
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
 export const RequestStatus: {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -54,6 +62,10 @@ export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type UserStatus = $Enums.UserStatus
+
+export const UserStatus: typeof $Enums.UserStatus
 
 export type RequestStatus = $Enums.RequestStatus
 
@@ -1124,6 +1136,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     isDonate: boolean | null
     isRequest: boolean | null
+    status: $Enums.UserStatus | null
     availability: boolean | null
     createdAt: Date | null
     updateAt: Date | null
@@ -1140,6 +1153,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     isDonate: boolean | null
     isRequest: boolean | null
+    status: $Enums.UserStatus | null
     availability: boolean | null
     createdAt: Date | null
     updateAt: Date | null
@@ -1156,6 +1170,7 @@ export namespace Prisma {
     role: number
     isDonate: number
     isRequest: number
+    status: number
     availability: number
     createdAt: number
     updateAt: number
@@ -1174,6 +1189,7 @@ export namespace Prisma {
     role?: true
     isDonate?: true
     isRequest?: true
+    status?: true
     availability?: true
     createdAt?: true
     updateAt?: true
@@ -1190,6 +1206,7 @@ export namespace Prisma {
     role?: true
     isDonate?: true
     isRequest?: true
+    status?: true
     availability?: true
     createdAt?: true
     updateAt?: true
@@ -1206,6 +1223,7 @@ export namespace Prisma {
     role?: true
     isDonate?: true
     isRequest?: true
+    status?: true
     availability?: true
     createdAt?: true
     updateAt?: true
@@ -1295,6 +1313,7 @@ export namespace Prisma {
     role: $Enums.UserRole
     isDonate: boolean
     isRequest: boolean
+    status: $Enums.UserStatus
     availability: boolean
     createdAt: Date
     updateAt: Date
@@ -1328,6 +1347,7 @@ export namespace Prisma {
     role?: boolean
     isDonate?: boolean
     isRequest?: boolean
+    status?: boolean
     availability?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -1348,6 +1368,7 @@ export namespace Prisma {
     role?: boolean
     isDonate?: boolean
     isRequest?: boolean
+    status?: boolean
     availability?: boolean
     createdAt?: boolean
     updateAt?: boolean
@@ -1379,6 +1400,7 @@ export namespace Prisma {
       role: $Enums.UserRole
       isDonate: boolean
       isRequest: boolean
+      status: $Enums.UserStatus
       availability: boolean
       createdAt: Date
       updateAt: Date
@@ -1791,6 +1813,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'UserRole'>
     readonly isDonate: FieldRef<"User", 'Boolean'>
     readonly isRequest: FieldRef<"User", 'Boolean'>
+    readonly status: FieldRef<"User", 'UserStatus'>
     readonly availability: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updateAt: FieldRef<"User", 'DateTime'>
@@ -4178,6 +4201,7 @@ export namespace Prisma {
     role: 'role',
     isDonate: 'isDonate',
     isRequest: 'isRequest',
+    status: 'status',
     availability: 'availability',
     createdAt: 'createdAt',
     updateAt: 'updateAt'
@@ -4282,6 +4306,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'UserStatus'
+   */
+  export type EnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserStatus[]'
+   */
+  export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4354,6 +4392,7 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isDonate?: BoolFilter<"User"> | boolean
     isRequest?: BoolFilter<"User"> | boolean
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     availability?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -4373,6 +4412,7 @@ export namespace Prisma {
     role?: SortOrder
     isDonate?: SortOrder
     isRequest?: SortOrder
+    status?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4395,6 +4435,7 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isDonate?: BoolFilter<"User"> | boolean
     isRequest?: BoolFilter<"User"> | boolean
+    status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     availability?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -4414,6 +4455,7 @@ export namespace Prisma {
     role?: SortOrder
     isDonate?: SortOrder
     isRequest?: SortOrder
+    status?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4436,6 +4478,7 @@ export namespace Prisma {
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     isDonate?: BoolWithAggregatesFilter<"User"> | boolean
     isRequest?: BoolWithAggregatesFilter<"User"> | boolean
+    status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
     availability?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -4612,6 +4655,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -4631,6 +4675,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -4650,6 +4695,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4669,6 +4715,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4688,6 +4735,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -4704,6 +4752,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4720,6 +4769,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4939,6 +4989,13 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type EnumUserStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4981,6 +5038,7 @@ export namespace Prisma {
     role?: SortOrder
     isDonate?: SortOrder
     isRequest?: SortOrder
+    status?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -4997,6 +5055,7 @@ export namespace Prisma {
     role?: SortOrder
     isDonate?: SortOrder
     isRequest?: SortOrder
+    status?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -5013,6 +5072,7 @@ export namespace Prisma {
     role?: SortOrder
     isDonate?: SortOrder
     isRequest?: SortOrder
+    status?: SortOrder
     availability?: SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
@@ -5070,6 +5130,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type EnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5274,6 +5344,10 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type EnumUserStatusFieldUpdateOperationsInput = {
+    set?: $Enums.UserStatus
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -5448,6 +5522,13 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedEnumUserStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5531,6 +5612,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserStatus | EnumUserStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserStatus[] | ListEnumUserStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserStatusWithAggregatesFilter<$PrismaModel> | $Enums.UserStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserStatusFilter<$PrismaModel>
+    _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5779,6 +5870,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5797,6 +5889,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5831,6 +5924,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5849,6 +5943,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5867,6 +5962,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5885,6 +5981,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5908,6 +6005,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5926,6 +6024,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isDonate?: boolean
     isRequest?: boolean
+    status?: $Enums.UserStatus
     availability?: boolean
     createdAt?: Date | string
     updateAt?: Date | string
@@ -5960,6 +6059,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5978,6 +6078,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6007,6 +6108,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6025,6 +6127,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isDonate?: BoolFieldUpdateOperationsInput | boolean
     isRequest?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string

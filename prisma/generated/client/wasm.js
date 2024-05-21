@@ -130,6 +130,7 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   isDonate: 'isDonate',
   isRequest: 'isRequest',
+  status: 'status',
   availability: 'availability',
   createdAt: 'createdAt',
   updateAt: 'updateAt'
@@ -177,6 +178,11 @@ exports.Prisma.NullsOrder = {
 exports.UserRole = exports.$Enums.UserRole = {
   DONOR: 'DONOR',
   ADMIN: 'ADMIN'
+};
+
+exports.UserStatus = exports.$Enums.UserStatus = {
+  ACTIVE: 'ACTIVE',
+  DEACTIVATE: 'DEACTIVATE'
 };
 
 exports.RequestStatus = exports.$Enums.RequestStatus = {

@@ -2,14 +2,22 @@ import express from "express";
 import { UserController } from "./user.controller";
 import auth from "../../../middleware/auth";
 import { UserRole } from "../../../../prisma/generated/client";
+import validateRequest from "../../../middleware/validateRequest";
+import { UserValidation } from "./user.validation";
 
 const router = express.Router();
 router.get("/testimonials", UserController.getTestimonial);
 router.get("/user-list", auth(UserRole.ADMIN), UserController.getAllUsers);
-router.get("/:id", auth(UserRole.ADMIN), UserController.getSingleUser);
+router.get("/user/:id", auth(UserRole.ADMIN), UserController.getSingleUser);
 router.get("/donor-list", UserController.getAllDonor);
-router.get("/:id", UserController.getSingleDonor);
+router.get("/donor/:id", UserController.getSingleDonor);
 router.get("/my-profile", auth(), UserController.getMyProfile);
-router.put("/my-profile", auth(), UserController.updateMyProfile);
+router.put(
+  "/my-profile",
+  auth(),
+  validateRequest(UserValidation.updateProfile),
+  UserController.updateMyProfile,
+);
+router.patch("/user/:id", auth(UserRole.ADMIN), validateRequest(UserValidation.updateUser), UserController.updateUser);
 
 export const UserRoutes = router;

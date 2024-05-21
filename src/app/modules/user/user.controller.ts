@@ -54,7 +54,7 @@ const getSingleDonor = catchAsync(async (req, res) => {
 });
 
 const getTestimonial = catchAsync(async (req, res) => {
-  console.log({test:"test"});
+  console.log({ test: "test" });
   const result = await UserServices.getTestimonialsFromDb();
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -84,6 +84,16 @@ const updateMyProfile = catchAsync(async (req, res) => {
   });
 });
 
+const updateUser = catchAsync(async (req, res) => {
+  const result = await UserServices.updateUserIntoDb(req.params.id, req.body);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "User updated successfully",
+    data: result,
+  });
+});
+
 export const UserController = {
   getAllUsers,
   getMyProfile,
@@ -92,4 +102,5 @@ export const UserController = {
   getAllDonor,
   getSingleDonor,
   getTestimonial,
+  updateUser,
 };
