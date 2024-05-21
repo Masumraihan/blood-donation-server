@@ -49,7 +49,7 @@ const loginIntoDb = async ({ email, password }: { email: string; password: strin
   }
 
   const accessToken = jwt.sign(
-    { email: userData.email, id: userData.id, role: userData.role }, 
+    { email: userData.email, id: userData.id, role: userData.role },
     config.accessTokenSecret as Secret,
     {
       expiresIn: config.accessTokenExpiresOn as string,
@@ -59,4 +59,47 @@ const loginIntoDb = async ({ email, password }: { email: string; password: strin
   return { id: userData.id, name: userData.name, email: userData.email, token: accessToken };
 };
 
-export const AuthServices = { registerIntoDb, loginIntoDb };
+const changePasswordIntoDb = async (
+  email: string,
+  payload: { oldPassword: string; newPassword: string },
+) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      email,
+    },
+  });
+  console.log(payload);
+
+  const isMatch = await bcrypt.compare(payload.oldPassword, userData.password);
+  console.log({isMatch});
+
+  if (!isMatch) {
+    throw new ApiError(StatusCodes.BAD_REQUEST, "Old password is incorrect");
+  }
+
+  const hashedPass = await bcrypt.hash(payload.newPassword, 10);
+
+  const result = await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      password: hashedPass,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      phoneNumber: true,
+      bloodType: true,
+      location: true,
+      availability: true,
+      role: true,
+      createdAt: true,
+      updateAt: true,
+    },
+  });
+  return result;
+};
+
+export const AuthServices = { registerIntoDb, loginIntoDb, changePasswordIntoDb };

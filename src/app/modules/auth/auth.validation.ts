@@ -37,7 +37,17 @@ const loginValidation = z.object({
     .strict(),
 });
 
+const changePassword = z.object({
+  body: z
+    .object({
+      oldPassword: z.string({ required_error: "Old password is required" }),
+      newPassword: z.string({ required_error: "New password is required" }),
+    })
+    .strict(),
+});
+
 export const AuthValidations = {
   registerValidation,
   loginValidation,
+  changePassword,
 };
