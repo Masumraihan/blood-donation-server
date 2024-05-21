@@ -19,6 +19,7 @@ model User {
   role                   UserRole       @default(DONOR)
   isDonate               Boolean        @default(false)
   isRequest              Boolean        @default(false)
+  status                 UserStatus     @default(ACTIVE)
   availability           Boolean        @default(false)
   createdAt              DateTime       @default(now())
   updateAt               DateTime       @updatedAt
@@ -72,4 +73,9 @@ enum RequestStatus {
 enum UserRole {
   DONOR
   ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  DEACTIVATE
 }
