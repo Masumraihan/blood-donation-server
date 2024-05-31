@@ -24,9 +24,12 @@ const getMyDonations = catchAsync(async (req, res) => {
 });
 
 const updateBloodRequestStatus = catchAsync(async (req, res) => {
+  const user = req.user;
+
   const result = await BloodRequestServices.updateBloodRequestStatusInfoDb(
     req.body,
     req.params.requestId,
+    user,
   );
   sendResponse(res, {
     success: true,

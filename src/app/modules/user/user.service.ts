@@ -1,11 +1,11 @@
-import { Prisma, User } from "@prisma/client";
+import { Prisma, RequestStatus, User } from "@prisma/client";
+import { JwtPayload } from "jsonwebtoken";
+import { UserProfile, UserRole, UserStatus } from "../../../../prisma/generated/client";
+import { PaginateHelpers } from "../../../helpers/paginateHelper";
 import prisma from "../../../shared/prisma";
+import { TPaginationOptions } from "../../../types/paginate";
 import { userSearchableField } from "./user.constant";
 import { TUserFilter } from "./user.interface";
-import { TPaginationOptions } from "../../../types/paginate";
-import { PaginateHelpers } from "../../../helpers/paginateHelper";
-import { JwtPayload } from "jsonwebtoken";
-import { UserRole, UserStatus } from "../../../../prisma/generated/client";
 
 const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginationOptions) => {
   const andConditions: Prisma.UserWhereInput[] = [];
@@ -60,6 +60,9 @@ const getAllUsersFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
       location: true,
       availability: true,
       role: true,
+      status: true,
+      isDonate: true,
+      isRequest: true,
       createdAt: true,
       updateAt: true,
       userProfile: true,
@@ -90,6 +93,7 @@ const getSingleUserFromDb = async (id: string) => {
       createdAt: true,
       updateAt: true,
       userProfile: true,
+      status: true,
     },
   });
   return result;
@@ -151,6 +155,7 @@ const getAllDonorFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
       createdAt: true,
       updateAt: true,
       userProfile: true,
+      status: true,
     },
     orderBy: sortConditions,
   });
@@ -159,10 +164,22 @@ const getAllDonorFromDb = async (query: TUserFilter, paginateOptions: TPaginatio
     where: { ...whereCondition, role: UserRole.DONOR },
   });
 
-  return { result, total, limit, page };
+  const meta = {
+    limit,
+    page,
+    total,
+  };
+
+  return { result, meta };
 };
 
-const getSingleDonorFromDb = async (id: string) => {
+const getSingleDonorFromDb = async (user: JwtPayload, id: string) => {
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: user.id,
+    },
+  });
+
   const result = await prisma.user.findUniqueOrThrow({
     where: {
       id,
@@ -177,17 +194,55 @@ const getSingleDonorFromDb = async (id: string) => {
       location: true,
       availability: true,
       role: true,
+      status: true,
       createdAt: true,
       updateAt: true,
       userProfile: true,
+      requestedBloodRequests: true,
     },
   });
+
+  if (result.requestedBloodRequests.length) {
+    const myRequest = result.requestedBloodRequests.find(
+      (request) =>
+        request.donorId === userData.id && request.requestStatus === RequestStatus.APPROVED,
+    );
+
+    if (myRequest) {
+      return {
+        id: result.id,
+        name: result.name,
+        bloodType: result.bloodType,
+        location: result.location,
+        availability: result.availability,
+        role: result.role,
+        createdAt: result.createdAt,
+        updateAt: result.updateAt,
+        userProfile: result.userProfile,
+        contactInfo: {
+          email: result.email,
+          phoneNumber: result.phoneNumber,
+        },
+      };
+    } else {
+      return {
+        id: result.id,
+        name: result.name,
+        bloodType: result.bloodType,
+        location: result.location,
+        availability: result.availability,
+        role: result.role,
+        createdAt: result.createdAt,
+        updateAt: result.updateAt,
+        userProfile: result.userProfile,
+      };
+    }
+  }
+
   return result;
 };
 
 const getTestimonialsFromDb = async () => {
-  console.log("here");
-
   const result = await prisma.user.findMany({
     where: {
       OR: [
@@ -207,7 +262,6 @@ const getTestimonialsFromDb = async () => {
       location: true,
     },
   });
-  console.log({ result });
   return result;
 };
 
@@ -221,27 +275,86 @@ const getMyProfileFromDb = async (user: JwtPayload) => {
   return userData;
 };
 
-const updateMyProfileIntoDb = async (payload: Partial<User>, user: JwtPayload) => {
+const updateMyProfileIntoDb = async (payload: Partial<User & UserProfile>, user: JwtPayload) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       id: user.id,
     },
   });
 
-  const result = await prisma.userProfile.update({
-    where: {
-      userId: userData.id,
-    },
-    data: payload,
-    select: {
-      id: true,
-      userId: true,
-      bio: true,
-      age: true,
-      lastDonationDate: true,
-      createdAt: true,
-      updateAt: true,
-    },
+  const { age, photo, bio, lastDonationDate, ...userPayload } = payload;
+
+  const profilePayload = {
+    age,
+    bio,
+    lastDonationDate,
+    photo,
+  };
+
+  const result = await prisma.$transaction(async (transactionClient) => {
+    if (Object.values(profilePayload).length) {
+      const profileData = await transactionClient.userProfile.update({
+        where: {
+          userId: userData.id,
+        },
+        data: profilePayload,
+        select: {
+          id: true,
+          userId: true,
+          bio: true,
+          age: true,
+          lastDonationDate: true,
+          createdAt: true,
+          updateAt: true,
+          photo: true,
+        },
+      });
+    }
+
+    if (Object.keys(userPayload).length) {
+      await transactionClient.user.update({
+        where: {
+          id: userData.id,
+        },
+        data: userPayload,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phoneNumber: true,
+          bloodType: true,
+          location: true,
+          availability: true,
+          status: true,
+          role: true,
+          createdAt: true,
+          updateAt: true,
+          userProfile: true,
+        },
+      });
+    }
+
+    const user = await transactionClient.user.findUniqueOrThrow({
+      where: {
+        id: userData.id,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phoneNumber: true,
+        bloodType: true,
+        location: true,
+        availability: true,
+        status: true,
+        role: true,
+        createdAt: true,
+        updateAt: true,
+        userProfile: true,
+      },
+    });
+
+    return user;
   });
   return result;
 };
@@ -252,6 +365,7 @@ const updateUserIntoDb = async (id: string, payload: { status: UserStatus; role:
       id,
     },
   });
+
 
   const result = await prisma.user.update({
     where: {
@@ -267,9 +381,18 @@ const updateUserIntoDb = async (id: string, payload: { status: UserStatus; role:
       location: true,
       availability: true,
       role: true,
+      status: true,
       createdAt: true,
       updateAt: true,
     },
+  });
+  return result;
+};
+
+//  GET ALL LOCATION FROM DB
+const getAllLocationFromDb = async () => {
+  const result = await prisma.user.groupBy({
+    by: ["location"],
   });
   return result;
 };
@@ -283,4 +406,5 @@ export const UserServices = {
   getSingleDonorFromDb,
   getTestimonialsFromDb,
   updateUserIntoDb,
+  getAllLocationFromDb,
 };

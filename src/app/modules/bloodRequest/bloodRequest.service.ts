@@ -2,6 +2,8 @@ import { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../shared/prisma";
 import { BloodRequest, RequestStatus } from "@prisma/client";
 import { UserRole } from "../../../../prisma/generated/client";
+import ApiError from "../../../errors/ApiError";
+import { StatusCodes } from "http-status-codes";
 
 type TPayload = {
   donorId: string;
@@ -82,6 +84,9 @@ const getMyDonationsFromDb = async (user: JwtPayload) => {
           location: true,
           bloodType: true,
           availability: true,
+          status: true,
+          createdAt: true,
+          updateAt: true,
         },
       },
     },
@@ -90,13 +95,41 @@ const getMyDonationsFromDb = async (user: JwtPayload) => {
     if (data.requestStatus === RequestStatus.APPROVED) {
       return { ...data, requester };
     } else {
-      return { ...data };
+      return {
+        ...data,
+        requester: {
+          bloodType: requester.bloodType,
+          name: requester.name,
+        },
+      };
     }
   });
   return modifyResult;
 };
 
-const updateBloodRequestStatusInfoDb = async (payload: Partial<BloodRequest>, id: string) => {
+const updateBloodRequestStatusInfoDb = async (
+  payload: {
+    requestStatus: RequestStatus;
+  },
+  id: string,
+  user: JwtPayload,
+) => {
+  await prisma.user.findUniqueOrThrow({
+    where: {
+      id: user.id,
+    },
+  });
+
+  const bloodRequestData = await prisma.bloodRequest.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  if (user.id !== bloodRequestData.donorId) {
+    throw new ApiError(StatusCodes.FORBIDDEN, "You are not authorized to perform this action");
+  }
+
   const result = await prisma.bloodRequest.update({
     where: {
       id,
@@ -112,6 +145,7 @@ const getMyRequestsFromDb = async (user: JwtPayload) => {
       id: user.id,
     },
   });
+
   const result = await prisma.bloodRequest.findMany({
     where: {
       requesterId: userData.id,
@@ -134,7 +168,15 @@ const getMyRequestsFromDb = async (user: JwtPayload) => {
     if (data.requestStatus === RequestStatus.APPROVED) {
       return { ...data, donor };
     } else {
-      return { ...data };
+      return {
+        ...data,
+        donor: {
+          name: donor.name,
+          availability: donor.availability,
+          bloodType: donor.bloodType,
+          id: donor.id,
+        },
+      };
     }
   });
 

@@ -68,10 +68,8 @@ const changePasswordIntoDb = async (
       email,
     },
   });
-  console.log(payload);
 
   const isMatch = await bcrypt.compare(payload.oldPassword, userData.password);
-  console.log({isMatch});
 
   if (!isMatch) {
     throw new ApiError(StatusCodes.BAD_REQUEST, "Old password is incorrect");

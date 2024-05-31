@@ -14,10 +14,13 @@ const updateProfile = z.object({
           message: "Please provide a valid blood type (A_POSITIVE)",
         },
       ),
+      phoneNumber: z.string(),
       age: z.number(),
       bio: z.string(),
       location: z.string(),
       lastDonationDate: z.string(),
+      photo: z.string(),
+      availability: z.boolean(),
     })
     .partial()
     .strict(),

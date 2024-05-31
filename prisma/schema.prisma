@@ -20,7 +20,7 @@ model User {
   isDonate               Boolean        @default(false)
   isRequest              Boolean        @default(false)
   status                 UserStatus     @default(ACTIVE)
-  availability           Boolean        @default(false)
+  availability           Boolean        @default(true)
   createdAt              DateTime       @default(now())
   updateAt               DateTime       @updatedAt
   requestedBloodRequests BloodRequest[] @relation(name: "doner")

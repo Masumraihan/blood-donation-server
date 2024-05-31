@@ -34,17 +34,18 @@ const getSingleUser = catchAsync(async (req, res) => {
 const getAllDonor = catchAsync(async (req, res) => {
   const filter = pick(req.query, userFilterableFields);
   const paginateOptions = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
-  const result = await UserServices.getAllDonorFromDb(filter, paginateOptions);
+  const { result, meta } = await UserServices.getAllDonorFromDb(filter, paginateOptions);
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
     message: "Donors retrieved successfully",
+    meta,
     data: result,
   });
 });
 
 const getSingleDonor = catchAsync(async (req, res) => {
-  const result = await UserServices.getSingleDonorFromDb(req.params.id);
+  const result = await UserServices.getSingleDonorFromDb(req.user, req.params.id);
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
@@ -94,6 +95,16 @@ const updateUser = catchAsync(async (req, res) => {
   });
 });
 
+const getAllLocations = catchAsync(async (req, res) => {
+  const result = await UserServices.getAllLocationFromDb();
+  sendResponse(res, {
+    success: true,
+    statusCode: StatusCodes.OK,
+    message: "Location fetched successfully",
+    data: result,
+  });
+});
+
 export const UserController = {
   getAllUsers,
   getMyProfile,
@@ -103,4 +114,5 @@ export const UserController = {
   getSingleDonor,
   getTestimonial,
   updateUser,
+  getAllLocations,
 };

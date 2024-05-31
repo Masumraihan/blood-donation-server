@@ -18,6 +18,7 @@ const registerValidation = z.object({
           message: "Please provide a valid blood type (A_POSITIVE)",
         },
       ),
+      phoneNumber: z.string().optional(),
       age: z.number({ required_error: "Age is required" }),
       bio: z.string({ required_error: "Bio is required" }),
       location: z.string({ required_error: "Location is required" }),

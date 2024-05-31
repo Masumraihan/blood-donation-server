@@ -22,6 +22,20 @@ const globalErrorHandler = (error: any, req: Request, res: Response, next: NextF
   } else if (error instanceof ApiError) {
     errorResponse.statusCode = error.statusCode;
     errorResponse.message = error.message;
+  } else if (error.name === "PrismaClientKnownRequestError") {
+    errorResponse.statusCode = StatusCodes.BAD_REQUEST;
+    const target = error.meta?.target as string[] | undefined;
+    errorResponse.message = target ? `${target[0]} is already exist` : `constraint failed`;
+  }
+  //TODO: THIS IS NOT WORK NEED TO FIND THE ISSUE
+  //else if (error instanceof PrismaClientRustPanicError) {
+  //  console.log(error, "err");
+  //}
+  else if (error instanceof Error) {
+    errorResponse.message = error.message;
+    errorResponse.errorDetails = {
+      issues: [{ field: "unknown", message: error.message }],
+    };
   }
 
   res.status(errorResponse.statusCode).json({
