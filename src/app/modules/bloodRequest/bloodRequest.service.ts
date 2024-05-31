@@ -92,7 +92,7 @@ const getMyDonationsFromDb = async (user: JwtPayload) => {
     },
   });
   const modifyResult = result.map(({ requester, ...data }) => {
-    if (data.requestStatus === RequestStatus.APPROVED) {
+    if (data.requestStatus === "APPROVED") {
       return { ...data, requester };
     } else {
       return {
@@ -165,7 +165,7 @@ const getMyRequestsFromDb = async (user: JwtPayload) => {
   });
 
   const modifyResult = result.map(({ donor, ...data }) => {
-    if (data.requestStatus === RequestStatus.APPROVED) {
+    if (data.requestStatus === "APPROVED") {
       return { ...data, donor };
     } else {
       return {

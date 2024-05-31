@@ -2391,7 +2391,7 @@ export namespace Prisma {
     photo: string | null
     bio: string
     age: number
-    lastDonationDate: string
+    lastDonationDate: string | null
     createdAt: Date
     updateAt: Date
     _count: UserProfileCountAggregateOutputType | null
@@ -2454,7 +2454,7 @@ export namespace Prisma {
       photo: string | null
       bio: string
       age: number
-      lastDonationDate: string
+      lastDonationDate: string | null
       createdAt: Date
       updateAt: Date
     }, ExtArgs["result"]["userProfile"]>
@@ -4493,7 +4493,7 @@ export namespace Prisma {
     photo?: StringNullableFilter<"UserProfile"> | string | null
     bio?: StringFilter<"UserProfile"> | string
     age?: IntFilter<"UserProfile"> | number
-    lastDonationDate?: StringFilter<"UserProfile"> | string
+    lastDonationDate?: StringNullableFilter<"UserProfile"> | string | null
     createdAt?: DateTimeFilter<"UserProfile"> | Date | string
     updateAt?: DateTimeFilter<"UserProfile"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -4505,7 +4505,7 @@ export namespace Prisma {
     photo?: SortOrderInput | SortOrder
     bio?: SortOrder
     age?: SortOrder
-    lastDonationDate?: SortOrder
+    lastDonationDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -4520,7 +4520,7 @@ export namespace Prisma {
     photo?: StringNullableFilter<"UserProfile"> | string | null
     bio?: StringFilter<"UserProfile"> | string
     age?: IntFilter<"UserProfile"> | number
-    lastDonationDate?: StringFilter<"UserProfile"> | string
+    lastDonationDate?: StringNullableFilter<"UserProfile"> | string | null
     createdAt?: DateTimeFilter<"UserProfile"> | Date | string
     updateAt?: DateTimeFilter<"UserProfile"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -4532,7 +4532,7 @@ export namespace Prisma {
     photo?: SortOrderInput | SortOrder
     bio?: SortOrder
     age?: SortOrder
-    lastDonationDate?: SortOrder
+    lastDonationDate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updateAt?: SortOrder
     _count?: UserProfileCountOrderByAggregateInput
@@ -4551,7 +4551,7 @@ export namespace Prisma {
     photo?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     bio?: StringWithAggregatesFilter<"UserProfile"> | string
     age?: IntWithAggregatesFilter<"UserProfile"> | number
-    lastDonationDate?: StringWithAggregatesFilter<"UserProfile"> | string
+    lastDonationDate?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UserProfile"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"UserProfile"> | Date | string
   }
@@ -4780,7 +4780,7 @@ export namespace Prisma {
     photo?: string | null
     bio: string
     age: number
-    lastDonationDate: string
+    lastDonationDate?: string | null
     createdAt?: Date | string
     updateAt?: Date | string
     user: UserCreateNestedOneWithoutUserProfileInput
@@ -4792,7 +4792,7 @@ export namespace Prisma {
     photo?: string | null
     bio: string
     age: number
-    lastDonationDate: string
+    lastDonationDate?: string | null
     createdAt?: Date | string
     updateAt?: Date | string
   }
@@ -4802,7 +4802,7 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
-    lastDonationDate?: StringFieldUpdateOperationsInput | string
+    lastDonationDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserProfileNestedInput
@@ -4814,7 +4814,7 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
-    lastDonationDate?: StringFieldUpdateOperationsInput | string
+    lastDonationDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4825,7 +4825,7 @@ export namespace Prisma {
     photo?: string | null
     bio: string
     age: number
-    lastDonationDate: string
+    lastDonationDate?: string | null
     createdAt?: Date | string
     updateAt?: Date | string
   }
@@ -4835,7 +4835,7 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
-    lastDonationDate?: StringFieldUpdateOperationsInput | string
+    lastDonationDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4846,7 +4846,7 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
-    lastDonationDate?: StringFieldUpdateOperationsInput | string
+    lastDonationDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5759,7 +5759,7 @@ export namespace Prisma {
     photo?: string | null
     bio: string
     age: number
-    lastDonationDate: string
+    lastDonationDate?: string | null
     createdAt?: Date | string
     updateAt?: Date | string
   }
@@ -5769,7 +5769,7 @@ export namespace Prisma {
     photo?: string | null
     bio: string
     age: number
-    lastDonationDate: string
+    lastDonationDate?: string | null
     createdAt?: Date | string
     updateAt?: Date | string
   }
@@ -5844,7 +5844,7 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
-    lastDonationDate?: StringFieldUpdateOperationsInput | string
+    lastDonationDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5854,7 +5854,7 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
-    lastDonationDate?: StringFieldUpdateOperationsInput | string
+    lastDonationDate?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

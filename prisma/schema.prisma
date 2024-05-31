@@ -36,7 +36,7 @@ model UserProfile {
   photo            String?
   bio              String
   age              Int
-  lastDonationDate String
+  lastDonationDate String?
   createdAt        DateTime @default(now())
   updateAt         DateTime @updatedAt
   user             User     @relation(fields: [userId], references: [id])

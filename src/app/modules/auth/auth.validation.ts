@@ -10,14 +10,18 @@ const registerValidation = z.object({
 
       name: z.string({ required_error: "Name is required" }),
       email: z.string({ required_error: "Email is required" }).email({ message: "Invalid Email" }),
-      bloodType: z.string({ required_error: "Blood type is required" }).refine(
-        (val) => {
-          return BloodTypes.includes(val);
-        },
-        {
-          message: "Please provide a valid blood type (A_POSITIVE)",
-        },
-      ),
+      bloodType: z
+        .string()
+        .refine(
+          (val) => {
+            return BloodTypes.includes(val);
+          },
+          {
+            message: "Please provide a valid blood type (A_POSITIVE)",
+          },
+        )
+        .optional(),
+      isDonate: z.boolean({ required_error: "is Donate is required" }),
       phoneNumber: z.string().optional(),
       age: z.number({ required_error: "Age is required" }),
       bio: z.string({ required_error: "Bio is required" }),

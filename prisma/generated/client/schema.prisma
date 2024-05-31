@@ -19,7 +19,8 @@ model User {
   role                   UserRole       @default(DONOR)
   isDonate               Boolean        @default(false)
   isRequest              Boolean        @default(false)
-  availability           Boolean        @default(false)
+  status                 UserStatus     @default(ACTIVE)
+  availability           Boolean        @default(true)
   createdAt              DateTime       @default(now())
   updateAt               DateTime       @updatedAt
   requestedBloodRequests BloodRequest[] @relation(name: "doner")
@@ -35,11 +36,10 @@ model UserProfile {
   photo            String?
   bio              String
   age              Int
-  lastDonationDate String
+  lastDonationDate String?
   createdAt        DateTime @default(now())
   updateAt         DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id])
+  user             User     @relation(fields: [userId], references: [id])
 
   @@map("userProfiles")
 }
@@ -72,4 +72,9 @@ enum RequestStatus {
 enum UserRole {
   DONOR
   ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  DEACTIVATE
 }
