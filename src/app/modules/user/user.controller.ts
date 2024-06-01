@@ -55,7 +55,6 @@ const getSingleDonor = catchAsync(async (req, res) => {
 });
 
 const getTestimonial = catchAsync(async (req, res) => {
-  console.log({ test: "test" });
   const result = await UserServices.getTestimonialsFromDb();
   sendResponse(res, {
     statusCode: StatusCodes.OK,

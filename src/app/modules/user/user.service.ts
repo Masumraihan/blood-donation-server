@@ -366,10 +366,9 @@ const updateUserIntoDb = async (id: string, payload: { status: UserStatus; role:
     },
   });
 
-
   const result = await prisma.user.update({
     where: {
-      id: userData.id,
+      id,
     },
     data: payload,
     select: {
@@ -386,6 +385,7 @@ const updateUserIntoDb = async (id: string, payload: { status: UserStatus; role:
       updateAt: true,
     },
   });
+
   return result;
 };
 

@@ -4424,11 +4424,11 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    phoneNumber?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     bloodType?: StringFilter<"User"> | string
     location?: StringFilter<"User"> | string
@@ -4442,7 +4442,7 @@ export namespace Prisma {
     requestedBloodRequests?: BloodRequestListRelationFilter
     donatedBloodRequests?: BloodRequestListRelationFilter
     userProfile?: XOR<UserProfileNullableRelationFilter, UserProfileWhereInput> | null
-  }, "id" | "email" | "phoneNumber">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder

@@ -6,7 +6,7 @@ import notFoundError from "./middleware/notFoundError";
 
 const app: Application = express();
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: ["https://blood-donation-client-rosy.vercel.app", "http://localhost:3000"], credentials: true }));
 app.use(express.json());
 
 app.get("/", (req, res) => {

@@ -19,7 +19,7 @@ const seedAdmin = async () => {
           email: "admin@gmail.com",
           phoneNumber: "1234567890",
           role: "ADMIN",
-          bloodType: "A+",
+          bloodType: "A_POSITIVE",
           location: "Dhaka",
         },
       });
